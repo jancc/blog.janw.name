@@ -1,0 +1,8 @@
+#!/bin/sh
+TMP_DIR=`mktemp -d`
+SITE_PATH="/var/www/blog.klockenschooster.de"
+GIT_WORK_TREE=$TMP_DIR git checkout -f
+cd $TMP_DIR
+mkdir -p $SITE_PATH
+python3 build.py
+cp -r build/* $SITE_PATH
