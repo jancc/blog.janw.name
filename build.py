@@ -2,6 +2,7 @@
 import json
 import os
 import time
+import shutil
 import markdown
 
 # Builds my blog page
@@ -9,6 +10,7 @@ import markdown
 
 TIME_FORMAT = '%Y-%m-%d'
 SRC_DIR = 'posts'
+ASSETS_DIR = 'assets'
 BUILD_DIR = 'build'
 PREVIEW_END_TOKEN = '===ENDPREVIEW==='
 
@@ -61,7 +63,11 @@ for num, post in enumerate(
         content_raw = f.read()
         content = md.convert(content_raw.replace(PREVIEW_END_TOKEN, ''))
         content_preview = md.convert(content_raw.split(PREVIEW_END_TOKEN)[0])
+
         html_filename = post['file'].replace('.md', '.html')
+
+        if(len(content_preview) < len(content)):
+            content_preview += f'<p><a href="{html_filename}">read more...</a></p>'
 
         print(f'Writing {html_filename}...')
         with open(os.path.join(BUILD_DIR, html_filename), 'w') as o:
@@ -69,24 +75,26 @@ for num, post in enumerate(
 
         html_index += '''
         <tr>
-        <td><a href="{1}">{0}. {2}</a></td>
+        <td><h3>{0}. {2}</h3></td>
         <td class="toc_right">{3}</td>
         </tr>
         <tr>
         <td colspan="2">
-            <details open>
-                <summary>preview...</summary>
-                {4}
-            </details>
+            {4}
         </td>
         </tr>
-        '''.format(num + 1, html_filename, post['title'], post['time'], content_preview)
+        '''.format(len(toc) - num, html_filename, post['title'], post['time'], content_preview)
 
 html_index += '</table>'
 
 print(f'Writing index...')
 with open(os.path.join(BUILD_DIR, 'index.html'), 'w') as o:
     o.write(build_overview(html_index))
+
+print('Copying assets...')
+ASSETS_TARGET_DIR = os.path.join(BUILD_DIR, 'assets')
+shutil.rmtree(ASSETS_TARGET_DIR)
+shutil.copytree(ASSETS_DIR, ASSETS_TARGET_DIR)
 
 print('Done')
 
