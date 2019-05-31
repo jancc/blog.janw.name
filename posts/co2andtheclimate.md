@@ -23,7 +23,7 @@ influence of carbonic acid in the air upon the temperature of the
 ground" [1].
 
 In simple terms: gases such as CO2, methane, etc. reflect heat. This happens,
-because heat is essentially just infrared light. When sunlights hits the earth
+because heat is essentially just infrared light. When sunlight hits the earth
 it is, for the most part, within the visible light spectrum. The wavelength of
 visible light is between 400 and 700 nm. This makes it fit right through most
 gases in the atmosphere. Once it hits the ground, part of it is reflected as
