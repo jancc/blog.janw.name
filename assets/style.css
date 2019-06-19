@@ -1,0 +1,28 @@
+body {
+	font-family: sans-serif;
+	background: #0e0e0e;
+	color: #efefef;
+}
+a {
+	color: #6d6dff;
+}
+#page {
+	max-width: 1000px;
+	margin: auto;
+}
+#header {
+	text-align: center;
+}
+#toc table {
+	width: 100%;
+	text-align: left;
+	border-collapse: collapse;
+}
+#toc td, th {
+	padding 8px;
+	-border: 1px solid;
+}
+.toc_right {
+	text-align: right;
+	width: 128px;
+}
