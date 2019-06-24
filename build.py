@@ -75,7 +75,7 @@ for num, post in enumerate(
 
         html_index += '''
         <tr>
-        <td><h3>{0}. {2}</h3></td>
+        <td><h2>{0}. {2}</h2></td>
         <td class="toc_right">{3}</td>
         </tr>
         <tr>
