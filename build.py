@@ -14,6 +14,8 @@ ASSETS_DIR = 'assets'
 BUILD_DIR = 'build'
 PREVIEW_END_TOKEN = '===ENDPREVIEW==='
 
+os.makedirs(BUILD_DIR, exist_ok=True)
+
 
 def build_post(post, content):
     output = template
@@ -93,7 +95,8 @@ with open(os.path.join(BUILD_DIR, 'index.html'), 'w') as o:
 
 print('Copying assets...')
 ASSETS_TARGET_DIR = os.path.join(BUILD_DIR, 'assets')
-shutil.rmtree(ASSETS_TARGET_DIR)
+if os.path.exists(ASSETS_TARGET_DIR):
+    shutil.rmtree(ASSETS_TARGET_DIR)
 shutil.copytree(ASSETS_DIR, ASSETS_TARGET_DIR)
 
 print('Done')
