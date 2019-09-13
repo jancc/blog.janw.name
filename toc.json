@@ -8,5 +8,10 @@
 		"file": "today.md",
 		"title": "Today - Keeping a diary using a simple shell alias",
 		"time": "2019-09-13"
+	},
+	{
+		"file": "flatpak.md",
+		"title": "Using Flatpak on a pure WM based desktop",
+		"time": "2019-09-14"
 	}
 ]
