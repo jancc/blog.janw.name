@@ -3,5 +3,10 @@
 		"file": "co2andtheclimate.md",
 		"title": "Showing that CO2 is a greenhouse gas (yes you read that right)",
 		"time": "2019-05-31"
+	},
+	{
+		"file": "today.md",
+		"title": "Today - Keeping a diary using a simple shell alias",
+		"time": "2019-09-13"
 	}
 ]
