@@ -81,7 +81,7 @@ for num, post in enumerate(
         <td class="toc_right">{3}</td>
         </tr>
         <tr>
-        <td colspan="2">
+        <td colspan="2" class="justify">
             {4}
         </td>
         </tr>

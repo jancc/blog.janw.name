@@ -1,4 +1,4 @@
-I've switched to using [Flatpak](https://www.flatpak.org) on my desktop linux
+I've switched to using [Flatpak](https://www.flatpak.org) on my desktop Linux
 computers. Here's why I've made that switch and how I made it work on an Arch
 install with an i3-based desktop.
 
@@ -26,7 +26,9 @@ from the main system, but there is the concept of _runtimes_. If an application
 needs functionality provided by KDE, it can use a KDE-based runtime. If,
 however, another application also needs this base system, the runtimes needs
 only be present once. Effectively this solves the immense space bloat problem
-posed by Snaps.
+posed by Snaps. It also solves a security problem, because runtimes can be
+updated independently from the programs. Thus outdated, flawed libraries can
+be patched. Provided they are still compatible with their previous version.
 
 This is why I wanted to make use of Flatpak on my desktop system. It is based
 on Arch Linux and I use a simple i3 based desktop.

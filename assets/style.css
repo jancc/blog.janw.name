@@ -21,3 +21,6 @@ body {
 	text-align: right;
 	width: 128px;
 }
+.justify {
+    text-align: justify;
+}
