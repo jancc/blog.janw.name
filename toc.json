@@ -13,5 +13,10 @@
 		"file": "flatpak.md",
 		"title": "Using Flatpak on a pure WM based desktop",
 		"time": "2019-09-14"
+	},
+	{
+		"file": "tmpfsdownloads.md",
+		"title": "Ephemeral Downloads - Keep yo ~/Downloads clean",
+		"time": "2019-09-19"
 	}
 ]
