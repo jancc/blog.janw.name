@@ -1,5 +1,13 @@
+html {
+	overflow-y: scroll; 
+}
 body {
 	font-family: sans-serif;
+	background: #0d0d0d;
+	color: #fffff0;
+}
+a {
+	color: #a0e0ff;
 }
 #page {
 	max-width: 1000px;
