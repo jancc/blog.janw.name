@@ -16,6 +16,9 @@ a {
 #header {
 	text-align: center;
 }
+#header .proverb {
+	font-size: 0.8em;
+}
 #toc table {
 	width: 100%;
 	text-align: left;
@@ -30,5 +33,5 @@ a {
 	width: 128px;
 }
 .justify {
-    text-align: justify;
+	text-align: justify;
 }
