@@ -3,11 +3,6 @@ html {
 }
 body {
 	font-family: sans-serif;
-	background: #0d0d0d;
-	color: #fffff0;
-}
-a {
-	color: #ffc32a;
 }
 #page {
 	max-width: 1000px;
@@ -18,6 +13,10 @@ a {
 }
 #header .proverb {
 	font-size: 0.8em;
+}
+#footer {
+	font-size: 0.8em;
+	text-align: center;
 }
 #toc table {
 	width: 100%;
