@@ -1,26 +1,22 @@
 html {
-	overflow-y: scroll; 
+	overflow-y: scroll;
 }
 body {
 	font-family: sans-serif;
 }
+h1 {
+		text-align: center;
+}
+a {
+	color: #108f10;
+}
 #page {
-	max-width: 1000px;
+	max-width: 50em;
 	margin: auto;
-}
-#header {
-	text-align: center;
-}
-#header .proverb {
-	font-size: 0.8em;
-}
-#footer {
-	font-size: 0.8em;
-	text-align: center;
+	text-align: justify;
 }
 #toc table {
 	width: 100%;
-	text-align: left;
 	border-collapse: collapse;
 }
 #toc td, th {
@@ -30,7 +26,4 @@ body {
 .toc_right {
 	text-align: right;
 	width: 128px;
-}
-.justify {
-	text-align: justify;
 }

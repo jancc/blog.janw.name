@@ -20,7 +20,7 @@ os.makedirs(BUILD_DIR, exist_ok=True)
 def build_post(post, content):
     output = template
     output = output.replace('$BODY$', template_post)
-    output = output.replace('$PAGETITLE$', '{0} - blog.klockenschooster.de'.format(post['title']))
+    output = output.replace('$PAGETITLE$', '{0} - blog.jancc.de'.format(post['title']))
     output = output.replace('$TITLE$', post['title'])
     output = output.replace('$CONTENT$', content)
     return output
@@ -29,7 +29,7 @@ def build_post(post, content):
 def build_overview(content):
     output = template
     output = output.replace('$BODY$', template_overview)
-    output = output.replace('$PAGETITLE$', 'blog.klockenschooster.de')
+    output = output.replace('$PAGETITLE$', 'blog.jancc.de')
     output = output.replace('$CONTENT$', content)
     return output
 
@@ -38,7 +38,6 @@ toc = None
 template = None
 template_overview = None
 template_post = None
-html_index = '<table>'
 
 md = markdown.Markdown()
 
@@ -53,6 +52,8 @@ with open('template_overview.html', 'r') as f:
 
 with open('template_post.html', 'r') as f:
     template_post = f.read()
+
+html_index = ""
 
 for num, post in enumerate(
         sorted(toc,
@@ -76,18 +77,12 @@ for num, post in enumerate(
             o.write(build_post(post, content))
 
         html_index += '''
-        <tr>
-        <td><h2>{0}. {2}</h2></td>
-        <td class="toc_right">{3}</td>
-        </tr>
-        <tr>
-        <td colspan="2" class="justify">
-            {4}
-        </td>
-        </tr>
-        '''.format(len(toc) - num, html_filename, post['title'], post['time'], content_preview)
-
-html_index += '</table>'
+        <p>
+            <details><summary><b>{1}</b> - {0}</summary>
+                {2}
+            </details>
+        </p>
+        '''.format(post['title'], post['time'], content_preview)
 
 print(f'Writing index...')
 with open(os.path.join(BUILD_DIR, 'index.html'), 'w') as o:
