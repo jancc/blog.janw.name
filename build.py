@@ -8,29 +8,29 @@ import markdown
 # Builds my blog page
 # Does its job so what
 
-TIME_FORMAT = '%Y-%m-%d'
-SRC_DIR = 'posts'
-ASSETS_DIR = 'assets'
-BUILD_DIR = 'build'
-PREVIEW_END_TOKEN = '===ENDPREVIEW==='
+TIME_FORMAT = "%Y-%m-%d"
+SRC_DIR = "posts"
+ASSETS_DIR = "assets"
+BUILD_DIR = "build"
+PREVIEW_END_TOKEN = "===ENDPREVIEW==="
 
 os.makedirs(BUILD_DIR, exist_ok=True)
 
 
 def build_post(post, content):
     output = template
-    output = output.replace('$BODY$', template_post)
-    output = output.replace('$PAGETITLE$', '{0} - blog.jancc.de'.format(post['title']))
-    output = output.replace('$TITLE$', post['title'])
-    output = output.replace('$CONTENT$', content)
+    output = output.replace("$BODY$", template_post)
+    output = output.replace("$PAGETITLE$", "{0} - blog.jancc.de".format(post["title"]))
+    output = output.replace("$TITLE$", post["title"])
+    output = output.replace("$CONTENT$", content)
     return output
 
 
 def build_overview(content):
     output = template
-    output = output.replace('$BODY$', template_overview)
-    output = output.replace('$PAGETITLE$', 'blog.jancc.de')
-    output = output.replace('$CONTENT$', content)
+    output = output.replace("$BODY$", template_overview)
+    output = output.replace("$PAGETITLE$", "blog.jancc.de")
+    output = output.replace("$CONTENT$", content)
     return output
 
 
@@ -41,58 +41,63 @@ template_post = None
 
 md = markdown.Markdown()
 
-with open('toc.json', 'r') as f:
+with open("toc.json", "r") as f:
     toc = json.load(f)
 
-with open('template.html', 'r') as f:
+with open("template.html", "r") as f:
     template = f.read()
 
-with open('template_overview.html', 'r') as f:
+with open("template_overview.html", "r") as f:
     template_overview = f.read()
 
-with open('template_post.html', 'r') as f:
+with open("template_post.html", "r") as f:
     template_post = f.read()
 
 html_index = ""
 
 for num, post in enumerate(
-        sorted(toc,
-            key=lambda x: time.mktime(time.strptime(x['time'], TIME_FORMAT)),
-            reverse=True
-            )
-        ):
+    sorted(
+        toc,
+        key=lambda x: time.mktime(time.strptime(x["time"], TIME_FORMAT)),
+        reverse=True,
+    )
+):
     output = template
-    with open(os.path.join(SRC_DIR, post['file']), 'r') as f:
+    with open(os.path.join(SRC_DIR, post["file"]), "r") as f:
         content_raw = f.read()
-        content = md.convert(content_raw.replace(PREVIEW_END_TOKEN, ''))
+        content = md.convert(content_raw.replace(PREVIEW_END_TOKEN, ""))
         content_preview = md.convert(content_raw.split(PREVIEW_END_TOKEN)[0])
 
-        html_filename = post['file'].replace('.md', '.html')
+        dirname = os.path.join(
+            "posts", post["time"] + "-" + post["file"].replace(".md", "")
+        )
 
-        if(len(content_preview) < len(content)):
-            content_preview += f'<p><a href="{html_filename}">read more...</a></p>'
+        if len(content_preview) < len(content):
+            content_preview += f'<p><a href="/{dirname}">read more...</a></p>'
 
-        print(f'Writing {html_filename}...')
-        with open(os.path.join(BUILD_DIR, html_filename), 'w') as o:
+        print(f"Writing {dirname}...")
+        os.makedirs(os.path.join(BUILD_DIR, dirname), exist_ok=True)
+        with open(os.path.join(BUILD_DIR, dirname, "index.html"), "w") as o:
             o.write(build_post(post, content))
 
-        html_index += '''
+        html_index += """
         <p>
             <details><summary><b>{1}</b> - {0}</summary>
                 {2}
             </details>
         </p>
-        '''.format(post['title'], post['time'], content_preview)
+        """.format(
+            post["title"], post["time"], content_preview
+        )
 
-print(f'Writing index...')
-with open(os.path.join(BUILD_DIR, 'index.html'), 'w') as o:
+print(f"Writing index...")
+with open(os.path.join(BUILD_DIR, "index.html"), "w") as o:
     o.write(build_overview(html_index))
 
-print('Copying assets...')
-ASSETS_TARGET_DIR = os.path.join(BUILD_DIR, 'assets')
+print("Copying assets...")
+ASSETS_TARGET_DIR = os.path.join(BUILD_DIR, "assets")
 if os.path.exists(ASSETS_TARGET_DIR):
     shutil.rmtree(ASSETS_TARGET_DIR)
 shutil.copytree(ASSETS_DIR, ASSETS_TARGET_DIR)
 
-print('Done')
-
+print("Done")

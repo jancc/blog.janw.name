@@ -1,27 +1,7 @@
 [
 	{
-		"file": "github-master.md",
-		"title": "MOOOOM! Github wants to rename the master branch!!!",
-		"time": "2020-06-15"
-	},
-	{
-		"file": "co2andtheclimate.md",
-		"title": "Showing that CO2 is a greenhouse gas (yes you read that right)",
-		"time": "2019-05-31"
-	},
-	{
-		"file": "today.md",
-		"title": "Today - Keeping a diary using a simple shell alias",
-		"time": "2019-09-13"
-	},
-	{
-		"file": "flatpak.md",
-		"title": "Using Flatpak on a pure WM based desktop",
-		"time": "2019-09-14"
-	},
-	{
 		"file": "tmpfsdownloads.md",
-		"title": "Ephemeral Downloads - Keep yo ~/Downloads clean",
+		"title": "Ephemeral Downloads",
 		"time": "2019-09-19"
 	}
 ]

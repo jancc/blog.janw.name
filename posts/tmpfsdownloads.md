@@ -1,6 +1,6 @@
 This is just a quick tipp. I added the following line to my `/etc/fstab` file:
 
-    tmpfs /home/jan/Downloads tmpfs rw,nodev,nosuid,noexec,size=1G 0 0
+    tmpfs /home/jan/Downloads tmpfs rw,nodev,noexec,size=1G 0 0
 
 ===ENDPREVIEW===
 
