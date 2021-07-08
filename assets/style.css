@@ -13,7 +13,6 @@ a {
 #page {
 	max-width: 50em;
 	margin: auto;
-	text-align: justify;
 }
 #toc table {
 	width: 100%;
@@ -21,7 +20,6 @@ a {
 }
 #toc td, th {
 	padding 8px;
-	-border: 1px solid;
 }
 .toc_right {
 	text-align: right;

@@ -2,8 +2,6 @@ This is just a quick tipp. I added the following line to my `/etc/fstab` file:
 
     tmpfs /home/jan/Downloads tmpfs rw,nodev,noexec,size=1G 0 0
 
-===ENDPREVIEW===
-
 It mounts my downloads directory onto an in-memory filesystem. This effectively
 makes my downloads only stay in RAM. I had the problem in the past that this
 directory would balloon in size because I'd never clean it. Now it will always
