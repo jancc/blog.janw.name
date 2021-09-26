@@ -1,5 +1,10 @@
 [
 	{
+		"file": "wireguard.md",
+		"title": "Setting up a WireGuard VPN",
+		"time": "2021-09-27"
+	},
+	{
 		"file": "tmpfsdownloads.md",
 		"title": "Ephemeral Downloads",
 		"time": "2019-09-19"

@@ -20,6 +20,11 @@ p {
 	max-width: 50em;
 	margin: auto;
 }
+pre {
+	border-style: ridge;
+	border-color: #e0e0e0;
+	padding: 12px;
+}
 @media (prefers-color-scheme: dark) {
 	a {
 		color: #5fe35f;
@@ -28,7 +33,11 @@ p {
 	body {
 		background: #0d0d0d;
 		color: #ebebeb;
-	};
+	}
+
+	pre {
+		border-color: #5f5f5f;
+	}
 }
 #toc table {
 	width: 100%;
