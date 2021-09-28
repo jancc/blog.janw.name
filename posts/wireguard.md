@@ -20,8 +20,8 @@ utility, which can perform several management tasks and the `wg-quick` utility,
 which can load and apply configurations from files. I'll not be making much use
 of in-place configuration and instead jump directly into writing configuration
 files, as they are pretty straightforward regardless. All configuration files
-live in `/etc/wireguard`, as this path allows shorthand notation in `wg-quick`
-arguments.
+live in `/etc/wireguard`. They could be located anywhere but this path allows
+shorthand notation in `wg-quick` arguments.
 
 ### Server
 
@@ -29,7 +29,7 @@ First let's set up the server (i.e. the Raspberry Pi), which the client can
 then connect with in order to have a tunneled connection into my home network.
 Create a configuration file in `/etc/wireguard/` called `wg0.conf`. Set its
 mode to `0600` because it will contain a private key and therefore shouldn't be
-world-readable. The configuration syntax is somethat similar to Windows' INI
+world-readable. The configuration syntax is somewhat similar to Windows' INI
 files. The server's interface is configured like this:
 
     [Interface]
@@ -40,8 +40,8 @@ files. The server's interface is configured like this:
 
 `Address` refers to the server's address within the WireGuard tunnel. In my
 setup I wanted to have the WireGuard "network" live under the netmask
-`192.168.42.0/24` and having the main gateway be `192.168.42.1` makes things
-simple to understand. `ListenPort` is `50040`, but can be anything of course
+`192.168.42.0/24`. Having the main gateway be `192.168.42.1` makes things
+simple to understand. `ListenPort` is `50040` but can be anything of course
 (I'm not even sure there is a definite default yet). Setting `MTU` to `1420` is
 the default and should work pretty much everywhere. Most interesting is the
 `PrivateKey` field. WireGuard uses Ed25519 keys for authentication and this is
@@ -75,9 +75,13 @@ For example, to get the server's public key:
     $ echo "RG9udCB1c2UgdGhpcyB2YWx1ZSB5b3UgZHVtYmFzcyE=" | wg pubkey
     QXJlIHlvdSByZWFkaW5nIHRoaXM/IEZvciByZWFsPyA=
 
+(Sidenote: This will write the private key into your shell history. So you may
+want to write the key into a file instead and `cat` it's contents into `wg
+pubkey`)
+
 While not strictly required, you may also generate and exchange a _pre-shared
 key_ between the peers, such that you also benefit from a layer of symmetric
-cryptography in case you want to harden againt quantum cryptoanalysis. Such
+cryptography in case you want to harden against quantum cryptanalysis. Such
 a key can be generated via `wg genpsk`:
 
     $ wg genpsk
@@ -105,9 +109,9 @@ Notice the additional `Endpoint` value in the client. This is because the
 client obviously needs to know where the server is located such that a
 WireGuard tunnel can be established. This does not need to be a domain name and
 could instead just be a raw IP address. Of course, in a VPN setup there is no
-way we could now an `Endpoint` value for the client. The server will learn the
+way we could know an `Endpoint` value for the client. The server will learn the
 client's endpoint after each handshake, which is implicitly performed whenever
-the client attempts to send data to the server.
+the client starts to send data to the server.
 
 ...aaand that's it! Do `wg-quick up wg0` on both devices and try to perform a
 ping over the WireGuard tunnel. You can inspect the state of the tunnel via:
