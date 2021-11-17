@@ -175,3 +175,39 @@ That's it. `wg-quick` will set up the routes accordingly.
 ## And?
 
 That's it. You're done. Enjoy your VPN :)
+
+## Persistent Keepalive
+
+This is a small update after a few months of very successfully using WireGuard.
+You might find yourself in the following situation: Consider that you have two
+devices A and B on your network. A has the address ''192.168.42.2'' and B has
+the address ''192.168.42.3''. Your router and gateway is at ''192.168.42.1''.
+''wg-quick'' sets routing up for you, simply sending all traffic towards
+''192.168.42.0/24'' over your router. Sure you _could_ configure a direct
+connection between each and every peer manually, but this would get super
+annoying super fast.
+
+Device A might be... whatever. And device B might be some gizmo that you only
+boot up sporadically via Wake-on-LAN. You'll find that, once B is booted up, A
+has no idea how to talk to B. The router doesn't know that B is awake yet. And
+B never had any reason to communicate with the router. So the router won't have
+any clue how to route A's traffic to B. Remember how WireGuard is advertised as
+not being a talky protocol by default? This is exactly that principle in action
+and in most cases its perfectly fine. However here it falls flat on its face.
+What we need to do here, is make sure that the router always knows how to talk
+to B and that it maintains a route.
+
+For this end, we can simply add the following line to _B_'s ''wg.conf'':
+
+    [Peer]
+    (...)
+    PersistentKeepalive = 30
+
+Now B will say "hello" to the router every 30 seconds, thus allowing the router
+to know of B's existence. You can, of course, also choose a higher interval.
+Most important is the initial handshake from B to the router right after B has
+finished booting up.
+
+And this concludes one of the few cases in which you should add
+''PersistentKeepalive'' to your WireGuard configurations. Seriously, if you
+don't encounter any issues just leave it out.
