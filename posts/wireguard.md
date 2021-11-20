@@ -180,10 +180,10 @@ That's it. You're done. Enjoy your VPN :)
 
 This is a small update after a few months of very successfully using WireGuard.
 You might find yourself in the following situation: Consider that you have two
-devices A and B on your network. A has the address ''192.168.42.2'' and B has
-the address ''192.168.42.3''. Your router and gateway is at ''192.168.42.1''.
-''wg-quick'' sets routing up for you, simply sending all traffic towards
-''192.168.42.0/24'' over your router. Sure you _could_ configure a direct
+devices, _A_ and _B_, on your network. _A_ has the address `192.168.42.2` and
+_B_ has the address `192.168.42.3`. Your router and gateway is at
+`192.168.42.1`.  `wg-quick` sets routing up for you, simply sending all traffic
+towards `192.168.42.0/24` over your router. Sure you _could_ configure a direct
 connection between each and every peer manually, but this would get super
 annoying super fast.
 
@@ -197,7 +197,7 @@ and in most cases its perfectly fine. However here it falls flat on its face.
 What we need to do here, is make sure that the router always knows how to talk
 to B and that it maintains a route.
 
-For this end, we can simply add the following line to _B_'s ''wg.conf'':
+For this end, we can simply add the following line to _B_'s `wg.conf`:
 
     [Peer]
     (...)
@@ -209,5 +209,5 @@ Most important is the initial handshake from B to the router right after B has
 finished booting up.
 
 And this concludes one of the few cases in which you should add
-''PersistentKeepalive'' to your WireGuard configurations. Seriously, if you
+`PersistentKeepalive` to your WireGuard configurations. Seriously, if you
 don't encounter any issues just leave it out.
