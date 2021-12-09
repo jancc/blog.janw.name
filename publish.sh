@@ -1,2 +1,2 @@
 #!/bin/sh
-rsync -r -a --delete --progress build/ klockenschooster:/var/www/blog.janw.name
+rsync -r -a --delete --progress build/ janw:/var/www/blog.janw.name
