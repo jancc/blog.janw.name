@@ -4,17 +4,15 @@ html {
 body {
 	font-family: sans-serif;
 }
+p {
+	text-align: justify;
+	hyphens: auto;
+}
 h1 {
-		text-align: center;
+	text-align: center;
 }
 a {
 	color: #108f10;
-}
-p {
-	-webkit-hyphens: auto;
-	-ms-hyphens: auto;
-	hyphens: auto;
-	text-align: justify;
 }
 #page {
 	max-width: 50em;
