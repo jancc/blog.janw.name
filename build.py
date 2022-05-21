@@ -2,8 +2,10 @@
 import json
 import os
 import time
+import datetime
 import shutil
 import markdown
+import rss
 
 # Builds my blog page
 # Does its job so what
@@ -13,6 +15,7 @@ TIME_OUTFORMAT = "%d. %B %Y"
 SRC_DIR = "posts"
 ASSETS_DIR = "assets"
 BUILD_DIR = "build"
+HOST = "https://blog.janw.name"
 
 os.makedirs(BUILD_DIR, exist_ok=True)
 
@@ -55,6 +58,8 @@ with open("template_post.html", "r") as f:
 
 html_index = ""
 
+feed = rss.RSS("janw's blog", HOST, "ramblings about stuff that interests me", "en-en")
+
 for num, post in enumerate(
     sorted(
         toc,
@@ -63,16 +68,28 @@ for num, post in enumerate(
     )
 ):
     output = template
+
+    dirname = os.path.join(
+        "posts", post["time"] + "-" + post["file"].replace(".md", "")
+    )
+
+    timestamp = time.strptime(post["time"], TIME_INFORMAT)
+    feed.add_post(
+        rss.Post(
+            post["title"],
+            "",
+            f"{HOST}/{dirname}",
+            "me@janw.name (Jan Wolff)",
+            f"{HOST}/{dirname}",
+            datetime.datetime.fromtimestamp(time.mktime(timestamp)),
+        )
+    )
+
     with open(os.path.join(SRC_DIR, post["file"]), "r") as f:
         content_raw = f.read()
         content = md.convert(content_raw)
 
-        timestamp = time.strptime(post["time"], TIME_INFORMAT)
         timestamp_str = time.strftime(TIME_OUTFORMAT, timestamp)
-
-        dirname = os.path.join(
-            "posts", post["time"] + "-" + post["file"].replace(".md", "")
-        )
 
         print(f"Writing {dirname}...")
         os.makedirs(os.path.join(BUILD_DIR, dirname), exist_ok=True)
@@ -94,5 +111,8 @@ ASSETS_TARGET_DIR = os.path.join(BUILD_DIR, "assets")
 if os.path.exists(ASSETS_TARGET_DIR):
     shutil.rmtree(ASSETS_TARGET_DIR)
 shutil.copytree(ASSETS_DIR, ASSETS_TARGET_DIR)
+
+print("Writing RSS feed...")
+feed.write(os.path.join(BUILD_DIR, "index.xml"))
 
 print("Done")
